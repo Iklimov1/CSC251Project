@@ -133,9 +133,9 @@ public class Policy
      {
       policyCost = (policyCost + 100);
      }
-     if (BMI > 35)
+     if (getBMI() > 35)
      {
-      policyCost = (policyCost + ((BMI - 35)*20));
+      policyCost = (policyCost + ((getBMI() - 35)*20));
      }
      return(policyCost);
      

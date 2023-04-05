@@ -6,6 +6,7 @@ public class Project_Inna_Klimova
    {
       Scanner keyboard = new Scanner(System.in);
       
+      // initialize variables
       int policyNum = 0;
       int PHage = 0;
       double PHheight = 0.0;
@@ -16,6 +17,7 @@ public class Project_Inna_Klimova
       String PHlastName = "";
       String PHsmokeStatus = "";
 
+     // get user data for class
       System.out.print("\nPlease enter the Policy Number: ");
       policyNum = Integer.parseInt(keyboard.nextLine());
       
@@ -40,6 +42,7 @@ public class Project_Inna_Klimova
       System.out.print("\nPlease enter the Policyholder's Weight: ");
       PHweight = keyboard.nextFloat();
   
+      // initialize new Policy class
       Policy policy = new Policy(policyNum, PHage, PHweight, PHheight, PHsmokeStatus, providerName, PHfirstName, PHlastName);
 
       System.out.println("Policy Number: "+ policy.getpolicyNum());
