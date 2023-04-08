@@ -1,57 +1,90 @@
+import java.io.*;
 import java.util.*;
-
 public class Project_Inna_Klimova
 {
-   public static void main(String[] args)
+   public static void main(String[] args) throws IOException
    {
       Scanner keyboard = new Scanner(System.in);
       
+      // initialize variables
       int policyNum = 0;
       int PHage = 0;
-      double PHheight = 0.0;
-      double PHweight = 0.0;
+      int smoker = 0;
+      int nonSmoker = 0;
       
+      String lineData = "";
       String providerName = "";
       String PHfirstName = "";
       String PHlastName = "";
       String PHsmokeStatus = "";
-
-      System.out.print("\nPlease enter the Policy Number: ");
-      policyNum = Integer.parseInt(keyboard.nextLine());
       
-      System.out.print("\nPlease enter the Provider Name: ");
-      providerName = keyboard.nextLine();
+      double PHheight = 0.0;
+      double PHweight = 0.0;
       
-      System.out.print("\nPlease enter the Policyholder's First Name: ");
-      PHfirstName = keyboard.nextLine();
+      File policyFile = new File("PolicyInformation.txt");
       
-      System.out.print("\nPlease enter the Policyholder's Last Name: ");
-      PHlastName = keyboard.nextLine();
+      if(!policyFile.exists())
+      {
+         System.out.println("File does not exist");
+         System.exit(0);
+      }
       
-      System.out.print("\nPlease enter the Policyholder's Age: ");
-      PHage = Integer.parseInt(keyboard.nextLine());
+      Scanner inputFile = new Scanner(policyFile);
       
-      System.out.print("\nPlease enter the Policyholder's Smoking Status(smoker/non-smoker): ");
-      PHsmokeStatus = keyboard.nextLine();
+      ArrayList<Policy> policyList = new ArrayList<Policy>(); //policyList references ArrayList for policy objects.
       
-      System.out.print("\nPlease enter the Policyholder's Height: ");
-      PHheight = Float.parseFloat(keyboard.nextLine());
+      while(inputFile.hasNext())
+      {
+         lineData = inputFile.nextLine();
+         policyNum = Integer.parseInt(lineData);
+         
+         providerName = inputFile.nextLine();
+         PHfirstName = inputFile.nextLine();
+         PHlastName = inputFile.nextLine();
+         
+         lineData = inputFile.nextLine();
+         PHage = Integer.parseInt(lineData);
+         PHsmokeStatus = inputFile.nextLine();
+         
+         lineData = inputFile.nextLine();
+         PHheight = Double.parseDouble(lineData);
+         lineData = inputFile.nextLine();
+         PHweight = Double.parseDouble(lineData);
+                  
+         if(inputFile.hasNext())
+         {
+            inputFile.nextLine();
+         }
+         Policy newPolicy = new Policy(policyNum, PHage, PHweight, PHheight, PHsmokeStatus, providerName, PHfirstName, PHlastName);
+         policyList.add(newPolicy); //adding the policy objects to the ArrayList policy 
+      }
       
-      System.out.print("\nPlease enter the Policyholder's Weight: ");
-      PHweight = keyboard.nextFloat();
-  
-      Policy policy = new Policy(policyNum, PHage, PHweight, PHheight, PHsmokeStatus, providerName, PHfirstName, PHlastName);
-
-      System.out.println("Policy Number: "+ policy.getpolicyNum());
-      System.out.println("Provider Name: "+ policy.getproviderName());
-      System.out.println("PolicyHolder's First Name: "+ policy.getPHfirstName());
-      System.out.println("PolicyHolder's Last Name: "+ policy.getPHlastName());
-      System.out.println("PolicyHolder's Age: "+ policy.getPHage());
-      System.out.println("PolicyHolder's Smoking Status: "+policy.getPHsmokeStatus());
-      System.out.printf("Policyholder's Height: %,.1f\n", policy.getPHheight());
-      System.out.printf("Policyholder's Weight: %,.1f\n",policy.getPHweight());
-      System.out.printf("Policyholder's BMI: %,.2f\n", policy.getBMI());
-      System.out.printf("Policy Price: $%,.2f\n", policy.getPolicyCost(policy.getBMI()));
- 
+      inputFile.close();
+      
+      for(int i = 0; i < policyList.size(); i++)
+      {
+         System.out.println("Policy Number: "+ policyList.get(i).getpolicyNum());
+         System.out.println("Provider Name: "+ policyList.get(i).getproviderName());
+         System.out.println("PolicyHolder's First Name: "+ policyList.get(i).getPHfirstName());
+         System.out.println("PolicyHolder's Last Name: "+ policyList.get(i).getPHlastName());
+         System.out.println("PolicyHolder's Age: "+ policyList.get(i).getPHage());
+         System.out.println("PolicyHolder's Smoking Status: "+policyList.get(i).getPHsmokeStatus());
+         System.out.printf("Policyholder's Height: %,.1f\n", policyList.get(i).getPHheight());
+         System.out.printf("Policyholder's Weight: %,.1f\n",policyList.get(i).getPHweight());
+         System.out.printf("Policyholder's BMI: %,.2f\n", policyList.get(i).getBMI());
+         System.out.printf("Policy Price: $%,.2f\n", policyList.get(i).getPolicyCost(policyList.get(i).getBMI()));
+         System.out.println();
+         
+         if ((policyList.get(i).getPHsmokeStatus()).equals("smoker"))
+         {
+            smoker++;
+         }
+         else
+         { 
+            nonSmoker++;
+         }
+      }
+         System.out.println("The number of policies with a smoker is: "+ smoker);
+         System.out.println("The number of policies with a non-smoker is: "+nonSmoker); 
    }
 }
