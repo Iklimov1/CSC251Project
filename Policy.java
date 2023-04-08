@@ -137,9 +137,9 @@ public class Policy
      {
       policyCost = (policyCost + 75);
      }
-     if (PHsmokeStatus == "smoker")
+     if (PHsmokeStatus.equalsIgnoreCase("smoker"))
      {
-      policyCost = (policyCost + 100);
+      policyCost += 100;
      }
      if (getBMI() > 35)
      {

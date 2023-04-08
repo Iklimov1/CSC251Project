@@ -9,6 +9,8 @@ public class Project_Inna_Klimova
       // initialize variables
       int policyNum = 0;
       int PHage = 0;
+      int smoker = 0;
+      int nonSmoker = 0;
       
       String lineData = "";
       String providerName = "";
@@ -72,8 +74,17 @@ public class Project_Inna_Klimova
          System.out.printf("Policyholder's BMI: %,.2f\n", policyList.get(i).getBMI());
          System.out.printf("Policy Price: $%,.2f\n", policyList.get(i).getPolicyCost(policyList.get(i).getBMI()));
          System.out.println();
-
+         
+         if ((policyList.get(i).getPHsmokeStatus()).equals("smoker"))
+         {
+            smoker++;
+         }
+         else
+         { 
+            nonSmoker++;
+         }
       }
-        
+         System.out.println("The number of policies with a smoker is: "+ smoker);
+         System.out.println("The number of policies with a non-smoker is: "+nonSmoker); 
    }
 }
