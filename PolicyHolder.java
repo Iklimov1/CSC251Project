@@ -109,7 +109,14 @@ public class PolicyHolder
       policyCost = (policyCost + ((getBMI() - 35)*20));
      }
      return(policyCost);
-     
    }
+  //creating toString method 
+   public String toString()
+   {
+      return String.format("\nPolicyholder's First Name: "+ PHfirstName +
+      "\nPolicyholder's Last Name: "+ PHlastName + "\nPolicyholder's Age: "+
+       PHage +"\nPolicyholder's Smoking Status (Y/N): "+ PHsmokeStatus +"\nPolicyholder's Height: "+ PHheight +
+       " inches" + "\nPolicyholder's Weight: "+ PHweight +" pounds" + "\nPolicyholder's BMI: %.2f"+ "\nPolicy Price: $%.2f", getBMI(), getPolicyCost()); 
+   }  
 
 }
