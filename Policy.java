@@ -49,6 +49,10 @@ public class Policy
    {
       return providerName;
    }
-  
+  //creating toString method 
+   public String toString()
+   {
+      return String.format("\nPolicy Number: "+ policyNum"\nProvider Name: "+ providerName + PolicyHolder.toString()); 
+   }  
      
 }
