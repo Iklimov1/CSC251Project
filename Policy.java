@@ -1,31 +1,48 @@
-import java.util.*;
 
 public class Policy
 {
       //all instance fields
       private int policyNum;      
       private String providerName;
+      private PolicyHolder policyholder;
+      private static int policyCounter;
+      
+     
+     
          
-   // no-arg constructor
+   // constructor that doesn't accept arguments
+   /**
+   @param policyNum is policyNum
+   @param providerName is providerName
+   */
+   
+   
    public Policy()
    {
-     policyNum = 0;
-     providerName = "";
+     this.policyNum = 0;
+     this.providerName = "";
+     this.policyholder = new PolicyHolder();
+     policyCounter += 1;
      
    }
+   
+   //static method
+   
+   /**
+   @return the number of the policy objects created
+   */
+   public static int getPolicyCounter()
+   {
+      return policyCounter;
+   }
    //constructor that accepts arguments
-   public Policy(int policyNum, int PHage, double PHweight, double PHheight, String PHsmokeStatus, String providerName, String PHfirstName, String PHlastName)
+   public Policy(int policyNum,String providerName,PolicyHolder holder)
    {
       this.policyNum = policyNum;
-      /**this.PHage = PHage;
-      this.PHheight = PHheight;
-      this.PHweight = PHweight;
+      /**
       */
       this.providerName =providerName;
-      /**this.PHfirstName = PHfirstName;
-      this.PHlastName = PHlastName;
-      this.PHsmokeStatus = PHsmokeStatus;
-      */   
+      /**      */   
    }
    /** @param policyName the policy number */
     public void setpolicyNum(int policyName)//mutator method
@@ -49,10 +66,36 @@ public class Policy
    {
       return providerName;
    }
+   
+   /** @return the policy cost */
+   public double getPolicyCost()
+   {
+      double policyCost = 600.0;
+     //using if statements to calculate extra fees.
+     if (this.policyholder.getPHage > 50)
+     {
+      policyCost = (policyCost + 75);
+     }
+     if (PHsmokeStatus.equalsIgnoreCase("smoker"))
+     {
+      policyCost += 100;
+     }
+     if (getBMI() > 35)
+     {
+      policyCost = (policyCost + ((getBMI() - 35)*20));
+     }
+     return(policyCost);
+   }
+
   //creating toString method 
    public String toString()
    {
-      return String.format("\nPolicy Number: "+ policyNum"\nProvider Name: "+ providerName + PolicyHolder.toString()); 
+   String total = "";
+      total += "Policy Number: "+ policyNum + "\n";
+      total += "Provider Name: " + providerName + "\n";
+      total += policyholder;
+      total += "Policy Price: "+String.format("$%.2f\n",getPolicyCost()); 
+       return total;
    }  
      
 }

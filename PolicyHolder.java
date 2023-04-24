@@ -1,4 +1,3 @@
-import java.util.*;
 public class PolicyHolder
 {   
    private String PHfirstName;
@@ -7,18 +6,33 @@ public class PolicyHolder
    private int PHage;
    private double PHheight;
    private double PHweight;
+   
+   public PolicyHolder()
+   {
+      this.PHfirstName = "";
+      this.PHlastName = "";
+      this.PHsmokeStatus = "non-smoker";
+      this.PHage = 0;
+      this.PHheight = 0.0;
+      this.PHweight = 0.0;
+      
+
+   }
 
 
    public PolicyHolder(String PHfirstName, String PHlastName, String PHsmokeStatus, int PHage, double PHheight, double PHweight)
    {
       //all instance fields
-      PHfirstName = "";
-      PHlastName = "";
-      PHsmokeStatus = "non-smoker";
-      PHage = 0;
-      PHheight = 0;
-      PHweight = 0;
+      this.PHfirstName = PHfirstName;
+      this.PHlastName = PHlastName;
+      this.PHsmokeStatus = PHsmokeStatus;
+      this.PHage = PHage;
+      this.PHheight = PHheight;
+      this.PHweight = PHweight;
+      
+      
    }
+      
    
    //setters
    /** @param PHfirstName is the policyholder's first name*/
@@ -91,32 +105,19 @@ public class PolicyHolder
    {
       return ((PHweight * 703) / (PHheight* PHheight));
    }
-   /** @return the policy cost */
-   public double getPolicyCost(double BMI) //need BMI info in this method.
-   {
-      double policyCost = 600.0;
-     //using if statements to calculate extra fees.
-     if (PHage > 50)
-     {
-      policyCost = (policyCost + 75);
-     }
-     if (PHsmokeStatus.equalsIgnoreCase("smoker"))
-     {
-      policyCost += 100;
-     }
-     if (getBMI() > 35)
-     {
-      policyCost = (policyCost + ((getBMI() - 35)*20));
-     }
-     return(policyCost);
-   }
-  //creating toString method 
+     //creating toString method 
    public String toString()
    {
-      return String.format("\nPolicyholder's First Name: "+ PHfirstName +
-      "\nPolicyholder's Last Name: "+ PHlastName + "\nPolicyholder's Age: "+
-       PHage +"\nPolicyholder's Smoking Status (Y/N): "+ PHsmokeStatus +"\nPolicyholder's Height: "+ PHheight +
-       " inches" + "\nPolicyholder's Weight: "+ PHweight +" pounds" + "\nPolicyholder's BMI: %.2f"+ "\nPolicy Price: $%.2f", getBMI(), getPolicyCost()); 
+   String total = "";
+      total += "Policyholder's First Name: "+ this.PHfirstName +"\n";
+      total += "Policyholder's Last Name: "+ this.PHlastName +"\n";
+      total += "Policyholder's Age: "+this.PHage +"\n";
+      total += "Policyholder's Smoking Status (Y/N): "+ this.PHsmokeStatus +"\n";
+      total += "Policyholder's Height: "+ String.format("%,.1f\n"+ this.PHheight) + " inches"; 
+      total += "Policyholder's Weight: "+ String.format("%,.1f\n"+ this.PHweight) + " pounds";
+      total += "Policyholder's BMI: "+String.format("%,.2f\n",this.getBMI());
+      return total; 
    }  
+   
 
 }
