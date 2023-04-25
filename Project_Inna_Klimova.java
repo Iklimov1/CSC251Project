@@ -6,7 +6,7 @@ public class Project_Inna_Klimova
    {
       Scanner keyboard = new Scanner(System.in);
       
-      // initialize variables
+    // initialize variables
       int policyNum = 0;
       int PHage = 0;
       int smoker = 0;
@@ -20,18 +20,18 @@ public class Project_Inna_Klimova
       
       double PHheight = 0.0;
       double PHweight = 0.0;
-      
+     
       File policyFile = new File("PolicyInformation.txt");
       
+      Scanner inputFile = new Scanner(policyFile);
+      
+      ArrayList<Policy> policyList = new ArrayList<Policy>(); //policyList references ArrayList for policy objects.
+
       if(!policyFile.exists())
       {
          System.out.println("File does not exist");
          System.exit(0);
       }
-      
-      Scanner inputFile = new Scanner(policyFile);
-      
-      ArrayList<Policy> policyList = new ArrayList<Policy>(); //policyList references ArrayList for policy objects.
       
       while(inputFile.hasNext())
       {
@@ -55,15 +55,20 @@ public class Project_Inna_Klimova
          {
             inputFile.nextLine();
          }
-         Policy newPolicy = new Policy(policyNum, PHage, PHweight, PHheight, PHsmokeStatus, providerName, PHfirstName, PHlastName);
-         policyList.add(newPolicy); //adding the policy objects to the ArrayList policy 
-      }
+       }
       
       inputFile.close();
       
+      PolicyHolder policyholder = new PolicyHolder(PHfirstName, PHlastName, PHsmokeStatus, PHage,  PHheight, PHweight); 
+
+      Policy newpolicy = new Policy(policyNum, providerName, policyholder);
+      
+      policyList.add(newpolicy);
+
+      
       for(int i = 0; i < policyList.size(); i++)
       {
-         System.out.println("Policy Number: "+ policyList.get(i).getpolicyNum());
+         /**System.out.println("Policy Number: "+ policyList.get(i).getpolicyNum());
          System.out.println("Provider Name: "+ policyList.get(i).getproviderName());
          System.out.println("PolicyHolder's First Name: "+ policyList.get(i).getPHfirstName());
          System.out.println("PolicyHolder's Last Name: "+ policyList.get(i).getPHlastName());
@@ -73,9 +78,11 @@ public class Project_Inna_Klimova
          System.out.printf("Policyholder's Weight: %,.1f\n",policyList.get(i).getPHweight());
          System.out.printf("Policyholder's BMI: %,.2f\n", policyList.get(i).getBMI());
          System.out.printf("Policy Price: $%,.2f\n", policyList.get(i).getPolicyCost(policyList.get(i).getBMI()));
-         System.out.println();
+          */
+          System.out.println(policyList.get(i));
+        /** System.out.println();*/
          
-         if ((policyList.get(i).getPHsmokeStatus()).equals("smoker"))
+         if (policyList.get(i).policyholder.getPHsmokeStatus().equals("smoker"))
          {
             smoker++;
          }
@@ -84,6 +91,7 @@ public class Project_Inna_Klimova
             nonSmoker++;
          }
       }
+         System.out.println("There were " + policyList.get(1).getPolicyCounter() + " Policy objects created.");
          System.out.println("The number of policies with a smoker is: "+ smoker);
          System.out.println("The number of policies with a non-smoker is: "+nonSmoker); 
    }

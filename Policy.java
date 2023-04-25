@@ -4,7 +4,7 @@ public class Policy
       //all instance fields
       private int policyNum;      
       private String providerName;
-      private PolicyHolder policyholder;
+      public PolicyHolder policyholder = new PolicyHolder();
       private static int policyCounter;
       
      
@@ -26,7 +26,14 @@ public class Policy
      
    }
    
-   //static method
+   public Policy(int policyNum,String providerName,PolicyHolder holder)
+   {
+      this.policyNum = policyNum;
+      /**
+      */
+      this.providerName =providerName;
+      /**      */   
+   }
    
    /**
    @return the number of the policy objects created
@@ -36,14 +43,7 @@ public class Policy
       return policyCounter;
    }
    //constructor that accepts arguments
-   public Policy(int policyNum,String providerName,PolicyHolder holder)
-   {
-      this.policyNum = policyNum;
-      /**
-      */
-      this.providerName =providerName;
-      /**      */   
-   }
+   
    /** @param policyName the policy number */
     public void setpolicyNum(int policyName)//mutator method
    {
@@ -52,7 +52,7 @@ public class Policy
       /** @param providerName the provider name */
     public void setproviderName(String providerName)//mutator method
    {
-      this.providerName =providerName;
+      this.providerName = providerName;
    }
       
    //accessor methods
@@ -72,17 +72,17 @@ public class Policy
    {
       double policyCost = 600.0;
      //using if statements to calculate extra fees.
-     if (this.policyholder.getPHage > 50)
+     if (this.policyholder.getPHage() > 50)
      {
       policyCost = (policyCost + 75);
      }
-     if (PHsmokeStatus.equalsIgnoreCase("smoker"))
+     if (this.policyholder.getPHsmokeStatus().equalsIgnoreCase("smoker"))
      {
       policyCost += 100;
      }
-     if (getBMI() > 35)
+     if (this.policyholder.getBMI() > 35)
      {
-      policyCost = (policyCost + ((getBMI() - 35)*20));
+      policyCost = (policyCost + ((this.policyholder.getBMI() - 35)*20));
      }
      return(policyCost);
    }
